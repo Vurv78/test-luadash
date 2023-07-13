@@ -1,0 +1,32 @@
+local chunk = require("src.lua.array.chunk")
+
+describe("array chunking", function()
+	describe("default arguments", function()
+		it("should work with no arguments provided", function()
+			local result = chunk()
+			expect(result).toEqual({})
+		end)
+
+		it("should work with no size provided", function()
+			local result = chunk({ 1, 2 })
+			expect(result).toEqual({ { 1 }, { 2 } })
+		end)
+	end)
+
+	describe("invalid usecases", function()
+		it("should handle negative size", function()
+			local result = chunk({ 1, 2, 3 }, -1)
+			expect(result).toEqual({})
+		end)
+
+		it("should handle decimal size less than 1", function()
+			local result = chunk({ 1, 2, 3 }, 0.2)
+			expect(result).toEqual({})
+		end)
+
+		it("should handle decimal size", function()
+			local result = chunk({ 1, 2, 3 }, 0.6)
+			expect(result).toEqual({})
+		end)
+	end)
+end)
